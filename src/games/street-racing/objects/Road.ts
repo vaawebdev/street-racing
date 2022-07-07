@@ -1,5 +1,5 @@
 import { Application, Texture, TilingSprite } from "pixi.js";
-import { AppObject, Context, View } from "./types";
+import { AppObject, Context, View } from "../types";
 
 export class Road implements AppObject {
   register(app: Application, view: Partial<View>): void {
@@ -10,12 +10,11 @@ export class Road implements AppObject {
     app.stage.addChild(road);
   }
 
-  boot(cxt: Context): void {}
-
   tick(cxt: Context): void {
     const { app, road } = cxt.view;
 
     road.x = app.view.width / 2 - road.width / 2;
+    road.tilePosition.y += cxt.state.player.speed;
     road.height = app.view.height;
     road.width = road.texture.width;
   }

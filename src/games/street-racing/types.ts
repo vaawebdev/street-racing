@@ -2,17 +2,26 @@ import { Application, Sprite, Text, TilingSprite } from "pixi.js";
 
 export interface View {
   app: Application;
+  delta: number;
   road: TilingSprite;
   score: Text;
   player: Sprite;
 }
 
+export interface PlayerState {
+  speed: number;
+  score: number;
+  position: number;
+}
+
+export interface InputState {
+  direction: [number, number];
+  nitro: boolean;
+}
+
 export interface State {
-  player: {
-    speed: number;
-    score: number;
-    position: number;
-  };
+  player: PlayerState;
+  input: InputState;
 }
 
 export interface Context {
@@ -21,7 +30,7 @@ export interface Context {
 }
 
 export interface AppObject {
-  register(app: Application, view: Partial<View>): void;
-  boot(cxt: Context): void;
+  register?(app: Application, view: Partial<View>): void;
+  boot?(cxt: Context): void;
   tick(cxt: Context): void;
 }
